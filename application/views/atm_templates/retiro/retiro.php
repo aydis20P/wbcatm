@@ -1,11 +1,11 @@
 <div class="container mt-5" style="height: 500px;">
     <div class="row h-25">
-        <div class="col-md-3"></div>
+        <div class="col-md-3"><p id="log"></p></div>
         <div class="col-md-6">
-            <h6 class="text-center">Ingresa el monto que deseas depositar a tu cuenta</h6>
+            <h6 class="text-center">Ingresa el monto que deseas retirar de tu cuenta</h6>
             <div class="form-outline form-white">
-                <form id="fmonto" action="realizaDeposito" method="POST">
-                    <input hidden required type="number" id="monto" value="" name="monto"/>
+                <form id="fmonto" action="realizaRetiro" method="POST">
+                    <input hidden required type="number" id="monto" name="monto"/>
                 </form>
                 <input type="text" id="form1" class="form-control" />
                 <label class="form-label" for="form1">$mxn</label>
@@ -35,7 +35,7 @@
         <div class="col-md-3 d-grid mb-2">
             <div class="d-grid">
                 <button class="btn btn-green" type="button" onclick="enviaMonto()">
-                    realizar depósito
+                    realizar retiro
                 </button>
             </div>
         </div>

@@ -28,4 +28,8 @@ class Menu extends CI_Controller {
     public function depositarAMiCuenta(){
         redirect('/deposito/index');
     }
+
+    public function disposicion(){
+        redirect('/retiro/index');
+    }
 }
