@@ -3,12 +3,12 @@
         <div class="col-md-3"><p id="log"></p></div>
         <div class="col-md-6">
             <form id="fmonto" action="realizaTransferencia" method="POST">
-                <input hidden required type="number" id="monto" name="monto"/>
+                <input hidden required type="number" min="50" max="15000" id="monto" name="monto"/>
                 <input hidden required type="number" id="numcuenta" name="numcuenta"/>
             </form>
-            <h6 class="text-center">Ingresa el monto a transferir</h6>
+            <h6 class="text-center">Ingresa el monto a transferir (mínimo $50, máximo $15000)</h6>
             <div class="form-outline form-white">
-                <input type="text" id="form1" class="form-control" />
+                <input type="text" maxlength="16" id="form1" class="form-control" />
                 <label class="form-label" for="form1">$mxn</label>
             </div>
             <h6 class="text-center">Ingresa el número de cuenta</h6>

@@ -2,6 +2,7 @@
     <div class="row h-25">
         <div class="col-md-3"></div>
         <div class="col-md-6">
+            <h2 class="text-center">Tu saldo es de</h2>
             <h2 class="text-center"><?php echo $total ?></h2>
         </div>
         <div class="col-md-3"></div>

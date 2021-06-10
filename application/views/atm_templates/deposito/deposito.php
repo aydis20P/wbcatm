@@ -2,10 +2,10 @@
     <div class="row h-25">
         <div class="col-md-3"></div>
         <div class="col-md-6">
-            <h6 class="text-center">Ingresa el monto que deseas depositar a tu cuenta</h6>
+            <h6 class="text-center">Ingresa el monto que deseas depositar a tu cuenta (mínimo $50, máximo $15000)</h6>
             <div class="form-outline form-white">
                 <form id="fmonto" action="realizaDeposito" method="POST">
-                    <input hidden required type="number" id="monto" value="" name="monto"/>
+                    <input hidden required type="number" min="50" max="15000" id="monto" value="" name="monto"/>
                 </form>
                 <input type="text" id="form1" class="form-control" />
                 <label class="form-label" for="form1">$mxn</label>
