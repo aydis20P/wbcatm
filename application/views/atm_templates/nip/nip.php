@@ -5,11 +5,11 @@
             <h6 class="text-center">Bienvenido <?php echo  $nombreCh; ?></h6>
             <div class="form-outline form-white">
                 <form id="fcuenta" action="verifica" method="POST">
-                    <input hidden type="text" id="nip" value="" name="nip"/>
-                </form> 
-                <input type="text" id="form1" class="form-control" />
+                    <input hidden required min="1000" max="9999" type="number" id="nip" name="nip"/>
+                </form>
+                <input type="text" maxlength="4" id="form1" class="form-control" />
                 <label class="form-label" for="form1">NIP</label>
-            </div> 
+            </div>
         </div>
         <div class="col-md-3"></div>
     </div>
@@ -42,8 +42,14 @@
 
 <script>
     function enviaNip(){
-        var val = document.getElementById("form1").value;
+        var form = document.getElementById("fcuenta");
+        const val = document.getElementById("form1").value;
         document.getElementById("nip").value = val;
-        document.getElementById("fcuenta").submit();
+        if(form.checkValidity()){
+            form.submit();
+        }
+        else{
+            alert("Datos incorrectos");
+        }
     }
 </script>
