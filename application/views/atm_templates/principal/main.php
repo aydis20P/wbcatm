@@ -4,11 +4,11 @@
         <div class="col-md-6">
             <div class="form-outline form-white">
                 <form id="fcuenta" action="verifica" method="POST">
-                    <input hidden type="text" id="numCuenta" name="numCuenta"/>
-                </form> 
-                <input type="text" id="form1" class="form-control" />
+                    <input hidden required type="number" id="numCuenta" name="numCuenta"/>
+                </form>
+                <input type="text" maxlength="16" id="form1" class="form-control" />
                 <label class="form-label" for="form1">Ingrese su núemro de cuenta</label>
-            </div>        
+            </div>
         </div>
         <div class="col-md-3"></div>
     </div>
@@ -19,7 +19,7 @@
     </div>
     <div class="row h-25">
         <div class="col-md-3"></div>
-        <div class="col-md-6"></div>
+        <div class="col-md-6"></p></div>
         <div class="col-md-3"></div>
     </div>
     <div class="row h-25">
@@ -35,8 +35,14 @@
 
 <script>
     function enviaNumCuenta(){
-        var val = document.getElementById("form1").value;
+        var form = document.getElementById("fcuenta");
+        const val = document.getElementById("form1").value;
         document.getElementById("numCuenta").value = val;
-        document.getElementById("fcuenta").submit();
+        if(form.checkValidity()){
+            form.submit();
+        }
+        else{
+            alert("Datos incorrectos");
+        }
     }
 </script>
