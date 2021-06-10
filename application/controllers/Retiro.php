@@ -22,7 +22,7 @@ class Retiro extends CI_Controller {
         //recuperar monto del formulario
         $monto = $this->input->post('monto');
 
-        //hacer petición de deposito a la cuenta
+        //hacer petición de retiro de la cuenta
         $uri = "https://wbankingcompany.herokuapp.com/index.php/v1/cuentas/retiro";
         $headers = array('Content-Type' => 'application/json');
         $data = array('idcuenta' => $idcuenta,

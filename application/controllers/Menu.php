@@ -32,4 +32,8 @@ class Menu extends CI_Controller {
     public function disposicion(){
         redirect('/retiro/index');
     }
+
+    public function transferencia(){
+        redirect('/transferencia/index');
+    }
 }

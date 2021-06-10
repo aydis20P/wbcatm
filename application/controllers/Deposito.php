@@ -39,7 +39,7 @@ class Deposito extends CI_Controller {
             $this->load->view('base_templates/header');
             $this->load->view('atm_templates/deposito/deposito_fallo');
             $this->load->view('base_templates/footer');
-        } 
+        }
     }
 
     public function regresar(){
