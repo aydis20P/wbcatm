@@ -13,8 +13,10 @@ class Consulta extends CI_Controller {
         //recuperar el id de la cuenta de la variable de sesión
         $idcuenta = $this->session->userdata('idcuenta');
         //hacer petición de saldo de la cuenta
-        $uri = "https://wbankingcompany.herokuapp.com/index.php/v1/cuentas/" . $idcuenta . "/saldo";
-        $request = Requests::get($uri);
+        $uri = "http://127.0.0.1:8000/wbankingcompanyapi/index.php/v1/cuentas/" . $idcuenta . "/saldo";
+        //header de autorización
+        $headers = array('Authorization' => 'Bearer '.$this->session->userdata('jwt'));
+        $request = Requests::get($uri, $headers);
         if ($request->status_code == 200) {
             $response = json_decode($request->body);
             //agregar a la data para gregarlo al template
@@ -25,10 +27,11 @@ class Consulta extends CI_Controller {
         }
         else{
             //cargar vista de error
+            echo $request->body;
             $this->load->view('base_templates/header');
             $this->load->view('atm_templates/consulta/consulta_fallo');
             $this->load->view('base_templates/footer');
-        } 
+        }
     }
 
     public function regresar(){
