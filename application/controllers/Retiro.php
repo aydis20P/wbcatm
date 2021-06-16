@@ -23,8 +23,9 @@ class Retiro extends CI_Controller {
         $monto = $this->input->post('monto');
 
         //hacer petición de retiro de la cuenta
-        $uri = "https://wbankingcompany.herokuapp.com/index.php/v1/cuentas/retiro";
-        $headers = array('Content-Type' => 'application/json');
+        $uri = getenv('api_url') . "/v1/cuentas/retiro";
+        $headers = array('Content-Type' => 'application/json',
+                         'Authorization' => 'Bearer ' . $this->session->userdata('jwt'));
         $data = array('idcuenta' => $idcuenta,
                        'totalRetirado' => (float)$monto);
         $response = Requests::post($uri, $headers, json_encode($data));
@@ -36,6 +37,7 @@ class Retiro extends CI_Controller {
         }
         else{
             //regresar vista de fallo
+            echo $response->body;
             $this->load->view('base_templates/header');
             $this->load->view('atm_templates/retiro/retiro_fallo');
             $this->load->view('base_templates/footer');

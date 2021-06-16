@@ -23,8 +23,9 @@ class Deposito extends CI_Controller {
         $monto = $this->input->post('monto');
 
         //hacer petición de deposito a la cuenta
-        $uri = "https://wbankingcompany.herokuapp.com/index.php/v1/cuentas/deposito";
-        $headers = array('Content-Type' => 'application/json');
+        $uri = getenv('api_url') . "/v1/cuentas/deposito";
+        $headers = array('Content-Type' => 'application/json',
+                         'Authorization' => 'Bearer ' . $this->session->userdata('jwt'));
         $data = array('idcuenta' => $idcuenta,
                        'totalDepositado' => (float)$monto);
         $response = Requests::post($uri, $headers, json_encode($data));
