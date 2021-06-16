@@ -10,6 +10,9 @@ class Main extends CI_Controller {
     }
 
     public function index(){
+        //eliminar la sesión anterior (si existe)
+        $this->session->sess_destroy();
+
         $this->load->view('base_templates/header');
         $this->load->view('atm_templates/principal/main');
         $this->load->view('base_templates/footer');
@@ -20,7 +23,7 @@ class Main extends CI_Controller {
         $data["numCuenta"] = $this->input->post('numCuenta');
 
         //hacer petición de la información de la cuenta
-        $uri = 'http://127.0.0.1:8000/wbankingcompanyapi/index.php/v1/cuentas/info/'.$data["numCuenta"];
+        $uri = getenv('api_url') . '/v1/cuentas/info/' . $data["numCuenta"];
         $request = Requests::get($uri);
 
         if ($request->status_code == 200) {

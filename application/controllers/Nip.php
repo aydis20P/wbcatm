@@ -20,10 +20,10 @@ class Nip extends CI_Controller {
     public function verifica(){
         //obtener el NIP ingresado en el formulario
         $nip = $this->input->post('nip');
-        $numeroCuenta = $this->session->userdata('numeroCuenta');
+        $numeroCuenta = $this->session->userdata('numerocuenta');
 
         //Pedir jwt para recibir autorización en las peticiones
-        $uri = 'http://127.0.0.1:8000/wbankingcompanyapi/index.php/v1/auth';
+        $uri = getenv('api_url') . '/v1/auth';
         $data = array('client' => 'wbcatm',
                       'numerocuenta' => $numeroCuenta,
                       'nip' => $nip);
@@ -33,6 +33,21 @@ class Nip extends CI_Controller {
         if($response->status_code == 200){
             //agregar jwt a una variable de sesión
             $this->session->set_userdata(array('jwt' => json_decode($response->body)->jwt));
+
+            //solicitar el id del cuentahabiente y el id de la cuenta
+            $uri = getenv('api_url') . "/v1/cuentas/" . $this->session->userdata('numerocuenta');
+            $headers = array('Authorization' => 'Bearer '.$this->session->userdata('jwt'));
+            $request = Requests::get($uri, $headers);
+            if ($request->status_code == 200) {
+                $response = json_decode($request->body);
+               //guardarlos en variable de sesión 
+               $this->session->set_userdata(array('idcuenta' => $response->idcuenta,
+                                                   'idcuentahabiente' => $response->idcuentahabiente));
+            }
+            else{
+                //cargar vista de error
+                echo $request->body;
+            }
 
             redirect('/menu/index');
         }

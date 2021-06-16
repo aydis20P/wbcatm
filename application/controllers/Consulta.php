@@ -13,7 +13,7 @@ class Consulta extends CI_Controller {
         //recuperar el id de la cuenta de la variable de sesión
         $idcuenta = $this->session->userdata('idcuenta');
         //hacer petición de saldo de la cuenta
-        $uri = "http://127.0.0.1:8000/wbankingcompanyapi/index.php/v1/cuentas/" . $idcuenta . "/saldo";
+        $uri = getenv('api_url') . "/v1/cuentas/" . $idcuenta . "/saldo";
         //header de autorización
         $headers = array('Authorization' => 'Bearer '.$this->session->userdata('jwt'));
         $request = Requests::get($uri, $headers);

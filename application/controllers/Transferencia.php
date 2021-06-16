@@ -24,11 +24,12 @@ class Transferencia extends CI_Controller {
         //recuperar número de cuenta del beneficiario del formulario
         $numcuenta = $this->input->post('numcuenta');
 
-        //consultar la infromación de la cuenta del beneficiario
-        $uri = "https://wbankingcompany.herokuapp.com/index.php/v1/cuentas/" . $numcuenta;
         $idbeneficiario = NULL;
+        //consultar la infromación de la cuenta del beneficiario
+        $uri = getenv('api_url') . "/v1/cuentas/" . $numcuenta;
+        $headers = array('Authorization' => 'Bearer ' . $this->session->userdata('jwt'));
 
-        $request = Requests::get($uri);
+        $request = Requests::get($uri, $headers);
         if ($request->status_code == 200) {
             $response = json_decode($request->body);
             $responseArray = (array) $response;
@@ -44,8 +45,9 @@ class Transferencia extends CI_Controller {
         }
 
         //realizar retiro de la cuenta del cuentahabiente
-        $uri = "https://wbankingcompany.herokuapp.com/index.php/v1/cuentas/retiro";
-        $headers = array('Content-Type' => 'application/json');
+        $uri = getenv('api_url') . "/v1/cuentas/retiro";
+        $headers = array('Content-Type' => 'application/json',
+                         'Authorization' => 'Bearer ' . $this->session->userdata('jwt'));
         $data = array('idcuenta' => $idcuenta,
                        'totalRetirado' => (float)$monto);
         $response = Requests::post($uri, $headers, json_encode($data));
@@ -62,8 +64,9 @@ class Transferencia extends CI_Controller {
         }
 
         //realizar depósito a la cuenta del beneficiario
-        $uri = "https://wbankingcompany.herokuapp.com/index.php/v1/cuentas/deposito";
-        $headers = array('Content-Type' => 'application/json');
+        $uri = getenv('api_url') . "/v1/cuentas/deposito";
+        $headers = array('Content-Type' => 'application/json',
+                         'Authorization' => 'Bearer ' . $this->session->userdata('jwt'));
         $data = array('idcuenta' => $idbeneficiario,
                        'totalDepositado' => (float)$monto);
         $response = Requests::post($uri, $headers, json_encode($data));
@@ -80,8 +83,9 @@ class Transferencia extends CI_Controller {
         }
 
         //hacer petición para el registro de la trasnferencia en el historial
-        $uri = "https://wbankingcompany.herokuapp.com/index.php/v1/transferencias";
-        $headers = array('Content-Type' => 'application/json');
+        $uri = getenv('api_url') . "/v1/transferencias";
+        $headers = array('Content-Type' => 'application/json',
+                         'Authorization' => 'Bearer ' . $this->session->userdata('jwt'));
         $data = array('idcuentahabiente' => (int)$idcuenta,
                        'idbeneficiario' => (int)$idbeneficiario,
                        'monto' => (float)$monto);
