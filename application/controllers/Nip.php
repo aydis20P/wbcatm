@@ -24,7 +24,7 @@ class Nip extends CI_Controller {
 
         //Pedir jwt para recibir autorización en las peticiones
         $uri = getenv('api_url') . '/v1/auth';
-        $data = array('client' => 'wbcatm',
+        $data = array('client' => getenv('site'),
                       'numerocuenta' => $numeroCuenta,
                       'nip' => $nip);
         $headers = array('Content-Type' => 'application/json');
